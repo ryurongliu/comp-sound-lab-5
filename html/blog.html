@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Post</title>
+    <link rel="stylesheet" href="../css/blog.css">
+</head>
+<body>
+    <a href="../index.html">Home</a>
+    <a href="cellular-automata.html">Back</a>
+    <div class="body">
+
+        <p>This pitch-set theory automated composer generates both pitch and duration, using the inputted pitch set class.</p>
+
+        <p>We can visualize the inputted pitch set class as directed lines connecting the vertices of a 12-sided polygon:</p>
+
+        <img src="diagram.png" class="image" />
+
+        <p>In short, the program takes this graph and performs several rotations, flips, reversals, and/or offsets to generate a sequence of notes.</p>
+
+        <p>
+            In more detail:<br />
+            The first thing the program does is decide how many times to operate
+            on the original input. The first part is deciding how many times to
+            “map” or “offset” the PSC:
+        </p>
+
+        <img src="map1.png" class="image" />
+
+        <p>
+            This maps the PSC onto a range of specific notes
+            (encoded using MIDI convention). The program chooses a random
+            number of “maps” between 1-5, and also chooses a random offset for
+            each map between MIDI keys 50-79, to keep the frequencies in a
+            “comfortable” range.
+        </p>
+        <img src="nummaps.png" class="image" />
+        <img src="offset.png" class="image" />
+
+        <p>
+            The next part is deciding how many iterations of operations to perform,
+            per mapping. The program chooses a random number of iterations between 2-8
+            for each mapping.
+        </p>
+
+        <img src="opspermap.png" class="image" />
+
+        <p>
+            Then, the program loops through each mapping, and for each iteration of
+            each mapping, it performs a random set of operations on the original PSC.
+            There are three possible operations: transpose, inversion, and retrograde,
+            which I decided to implement in that order. The program picks a random number
+            of transpositions between 1 and 11, and it randomly picks whether or not to
+            invert or retrograde.
+        </p>
+        <img src="operations-code.png" class="image" />
+
+
+        <p>
+            The transposition operation is very simple and just uses the modulo operation,
+            and can be visualized as a rotation of the original lines:
+        </p>
+        <img src="transpose-code.png" class="image" />
+        <img src="transpose.png" class="image" />
+
+        <p>
+            The inversion operation reflects the graph down the middle, which I implemented
+            by taking 12-[original value].
+        </p>
+        <img src="inversion-code.png" class="image" />
+        <img src="inversion.png" class="image" />
+        <p>Finally, the retrograde operation just reverses the order.</p>
+        <img src="retrograde-code.png" class="image" />
+        <img src="retrograde.png" class="image" />
+
+        <p>
+            These operations can easily be concatenated - for example, the following
+            diagrams illustrate t(2)ir[0 4 7]:
+        </p>
+        <img src="operation.png" class="image" />
+        <p>The program then takes the operated PSC and applies the mapping offset:</p>
+        <img src="map-code.png" class="image" />
+        <img src="map2.png" class="image" />
+        <p>Those mapped MIDI keys are then added to the sequence of notes.</p>
+
+        <p>
+            The duration of each note is also derived from the operated PSC,
+            simply by multiplying (operatedPSCvalue + 1) by 0.05 seconds. This
+            is implemented when adding notes to the sequence:
+        </p>
+        <img src="duration-code.png" class="image" />
+        <img src="duration.png" class="image" />
+
+        <p>
+            And then the program moves on to the next iteration,
+            until all iterations of all mappings are complete.
+        </p>
+        <p>
+            Finally, to play sound, the program uses the scheduling system
+            from the magenta demo code and plays a simple sine wave oscillator.
+        </p>
+        <img src="sound-code1.png" class="image" />
+        <img src="sound-code2.png" class="image" />
+    </div>
+</body>
+</html>

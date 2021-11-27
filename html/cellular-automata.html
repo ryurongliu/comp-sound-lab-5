@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pitch-Set Theory Automation</title>
+    <link rel="stylesheet" href="../css/cellular-automata.css">
+</head>
+<body>
+    <div id="controls">
+        <div class="title">PITCH-SET THEORY: AUTOMATED COMPOSITION</div><br />
+        <div class="explain">
+            Instructions:<br />
+            1. Enter a pitch set class in normal form, separated by spaces (no brackets). <br />
+            2. Press "generate" to generate a sequence of notes. <br />
+            3. Press "play" to play the notes. <br />
+            4. Enjoy the dulcet tones of your automated composition :)
+        </div> <br />
+        <div class="enter">
+            Pitch set class: <input type="text" id="code">
+            <button class="generate" id="generate">Generate</button>
+        </div>
+        <div class="display">
+            <span>Generated sequence: <span id="display"></span></span>
+        </div>
+        <div class="enter">
+            <button class="play" id="play">PLAY</button>
+        </div>
+        <div class="link">
+            <a href="blog.html">Blog Post</a>
+        </div>
+    </div>
+    <a href="../index.html">Home</a>
+    
+</body>
+<script src="../js/cellular-automata.js"></script>
+</html>
